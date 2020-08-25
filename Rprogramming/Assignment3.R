@@ -4,31 +4,6 @@ library(hash)
 library(dplyr)
 options(warn=-1)
 outcome <- read.csv("ass3/outcome-of-care-measures.csv", colClasses = "character")
-outcome[, 11] <- as.numeric(outcome[, 11])
-hist(outcome[, 11])
-
-
-
-names(df)[3] <- "attack"
-names(df)[4] <- "failure"
-names(df)[5] <- "pnem"
-df$attack <- as.numeric(df$attack)
-df$failure <- as.numeric(df$failure)
-df$pnem <- as.numeric(df$pnem)
-
-df <- select(df, c('Hospital.Name',
-                        'State',
-                        "attack"))
-
-xx<- df %>% group_by(State, attack)  %>% arrange(attack, Hospital.Name, .by_group = TRUE)
-xx<-xx[complete.cases(xx),]
-data.frame(tapply(xx$Hospital.Name, xx$State, function(x) {x[length(x)]}))
-
-
-df_out<- data.frame(tapply(xx$Hospital.Name, xx$State, function(x) {}))
-names(df_out)[1]<-'hospital'
-df_out[2]<-rownames(df_out)
-names(df_out)[2]<-'state'
 
 
 rankall <- function(outcome, num = "best") {
